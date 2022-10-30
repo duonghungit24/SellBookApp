@@ -9,6 +9,7 @@ import {
   Text,
   GradientBackground,
   AutoImage as Image,
+  VectorIcons,
 } from "../../components"
 import { color, spacing, typography } from "../../theme"
 import { NavigatorParamList } from "../../navigators"

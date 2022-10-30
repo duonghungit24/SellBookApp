@@ -1,5 +1,7 @@
 rootProject.name = 'SellBook'
 
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
 // This method of including other gradle files is to support symlinks.
 apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute().text.trim(), "../scripts/autolinking.gradle");
 useExpoModules()
@@ -14,3 +16,4 @@ if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true")
     include(":ReactAndroid")
     project(":ReactAndroid").projectDir = file('../node_modules/react-native/ReactAndroid')
 }
+ß
