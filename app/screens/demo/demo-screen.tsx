@@ -12,7 +12,7 @@ import {
   GradientBackground,
 } from "../../components"
 import { NavigatorParamList } from "../../navigators"
-import { color, spacing } from "../../theme"
+import { color, spacing, typography } from "../../theme"
 import { Api } from "../../services/api"
 import { save } from "../../utils/storage"
 export const logoIgnite = require("./logo-ignite.png")
@@ -140,41 +140,8 @@ export const DemoScreen: FC<StackScreenProps<NavigatorParamList, "demo">> = obse
       <View testID="DemoScreen" style={FULL}>
         <GradientBackground colors={["#422443", "#281b34"]} />
         <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-          <Header
-            headerTx="demoScreen.howTo"
-            leftIcon="back"
-            onLeftPress={goBack}
-            style={HEADER}
-            titleStyle={HEADER_TITLE}
-          />
-          <Text style={TITLE} preset="header" tx="demoScreen.title" />
-          <Text style={TAGLINE} tx="demoScreen.tagLine" />
-          <BulletItem text="Integrated here, Navigation with State, TypeScript, Storybook, and i18n." />
-          <BulletItem
-            text={`To run Storybook, press ${platformCommand} or shake the device to show the developer menu, then select "Toggle Storybook"`}
-          />
-          <BulletItem text="Load up Reactotron! You can inspect your app, view the events, interact, and so much more!" />
-          <View>
-            <Button
-              style={DEMO}
-              textStyle={DEMO_TEXT}
-              tx="demoScreen.reactotron"
-              onPress={demoReactotron}
-            />
-            <Text style={HINT} tx={`demoScreen.${Platform.OS}ReactotronHint` as const} />
-          </View>
-          <Button
-            style={DEMO}
-            textStyle={DEMO_TEXT}
-            tx="demoScreen.demoList"
-            onPress={() => navigation.navigate("demoList")}
-          />
-          <Image source={logoIgnite} style={IGNITE} />
-          <View style={LOVE_WRAPPER}>
-            <Text style={LOVE} text="Made with" />
-            <Image source={heart} style={HEART} />
-            <Text style={LOVE} text="by Infinite Red" />
-          </View>
+          <Text>hello</Text>
+          <Text style={{ ...typography.textBold }}>hello1</Text>
         </Screen>
       </View>
     )

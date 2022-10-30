@@ -42,6 +42,7 @@ const HEADER_TITLE: TextStyle = {
 const TITLE_WRAPPER: TextStyle = {
   ...TEXT,
   textAlign: "center",
+  ...typography.textBold,
 }
 const TITLE: TextStyle = {
   ...TEXT,
@@ -69,6 +70,7 @@ const CONTENT: TextStyle = {
   fontSize: 15,
   lineHeight: 22,
   marginBottom: spacing[5],
+  ...typography.textBold,
 }
 const CONTINUE: ViewStyle = {
   paddingVertical: spacing[4],
