@@ -1,5 +1,5 @@
-import React from "react"
-import { StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle } from "react-native"
+import React, { useState } from "react"
+import { StyleProp, TextInput, TextInputProps, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { color, spacing, typography } from "../../theme"
 import { translate, TxKeyPath } from "../../i18n"
 import { Text } from "../text/text"
@@ -57,6 +57,8 @@ export interface TextFieldProps extends TextInputProps {
   forwardedRef?: any
   typeIcon?: any
   nameIcon?: string
+  isEye?: boolean 
+  iconLeft?: boolean
 }
 
 /**
@@ -74,31 +76,54 @@ export function TextField(props: TextFieldProps) {
     forwardedRef,
     typeIcon,
     nameIcon,
+    isEye,
+    iconLeft = false,
     ...rest
   } = props
-
+  
+  const [secureTextEntry, setSecureTextEntry] = useState(true)
   const containerStyles = [CONTAINER, PRESETS[preset], styleOverride]
   const inputStyles = [INPUT, inputStyleOverride]
   const actualPlaceholder = placeholderTx ? translate(placeholderTx) : placeholder
 
+  const handleSecurity = () => {
+    setSecureTextEntry(!secureTextEntry)
+  }
+
   return (
     <View style={containerStyles}>
       <Text preset="fieldLabel" tx={labelTx} text={label} />
+    
       <View style={VIEW_INPUT}>
-       <VectorIcons
-        type={typeIcon}
-        name={nameIcon}
+      {
+        iconLeft &&  
+        <VectorIcons
+        type={typeIcon || "Feather"}
+        name={nameIcon || "search"}
         size={20}
         color={color.neutral500}
        />
+      }
       <TextInput
         placeholder={actualPlaceholder}
         placeholderTextColor={color.neutral500}
         underlineColorAndroid={color.transparent}
+        secureTextEntry={isEye && secureTextEntry}
         {...rest}
         style={inputStyles}
         ref={forwardedRef}
         />
+        {
+        isEye && 
+          <TouchableOpacity activeOpacity={0.9} hitSlop={10} onPress={handleSecurity}>
+            <VectorIcons
+              type="Ionicons"
+              name={secureTextEntry ? "eye" : "eye-off"}
+              size={20}
+              color={color.neutral500}
+            />
+          </TouchableOpacity>
+        }
       </View>
     </View>
   )

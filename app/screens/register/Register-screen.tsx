@@ -38,8 +38,8 @@ export const RegisterScreen: FC<StackScreenProps<NavigatorParamList, "register">
        <View style={CONTENT}>
         <TextField nameIcon="user" typeIcon="Feather" placeholder="Tên" />
         <TextField nameIcon="user" typeIcon="Feather" placeholder="Email" />
-        <TextField nameIcon="md-lock-closed-outline" typeIcon="Ionicons" placeholder="Mật khẩu" />
-        <TextField nameIcon="md-lock-closed-outline" typeIcon="Ionicons" placeholder="Nhập lại mật khẩu" />
+        <TextField nameIcon="md-lock-closed-outline" typeIcon="Ionicons" placeholder="Mật khẩu" isEye />
+        <TextField nameIcon="md-lock-closed-outline" typeIcon="Ionicons" placeholder="Nhập lại mật khẩu" isEye />
         <ButtonApp title="Đăng kí" onPress={onRegister} style={BTN}/>
         <ButtonApp title="Đã có tài khoản" onPress={() => navigation.goBack()} style={{backgroundColor: color.white, marginTop: 10}} styleText={{color: color.neutral700}}/>
        </View>

@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle , View , TouchableOpacity, TextStyle } from "react-native"
+import { ViewStyle , View , TouchableOpacity, TextStyle , ImageStyle ,Image} from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
 import { Header, Screen, Text, TextField } from "../../components"
@@ -30,8 +30,9 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const onLogin = () => {
-    // navigation.navigate("homeScreen")
-    generalStore.showLoading()
+    // generalStore.showLoading()
+    navigation.navigate("bottomTabs")
+    // generalStore.hideLoading()
   }
   // Pull in navigation via hook
   // const navigation = useNavigation()
@@ -40,7 +41,7 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
         <Header leftIcon headerText="Đăng nhập" style={{backgroundColor: color.white }} />
         <View style={CONTENT}>
             <TextField nameIcon="user" typeIcon="Feather" placeholder="Email" style={[INPUT, {marginTop: 30}]} />
-            <TextField nameIcon="md-lock-closed-outline" typeIcon="Ionicons" placeholder="Mật khẩu" style={INPUT} />
+            <TextField nameIcon="md-lock-closed-outline" typeIcon="Ionicons" placeholder="Mật khẩu" style={INPUT} isEye />
             <ButtonApp title="Đăng nhập" onPress={onLogin} style={BTN}/>
             <View style={WRAP_ROW}>
             <TouchableOpacity onPress={() => navigation.navigate("registerScreen")}>
@@ -51,8 +52,15 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
               </TouchableOpacity>
             </View>
 
-            <View>
+            <View style={WRAP_ICON}>
+              <TouchableOpacity>
 
+                <Image source={require("./assets/facebook.png")} style={ICON}/>
+              </TouchableOpacity>
+              <TouchableOpacity>
+
+                <Image source={require("./assets/google.jpg")} style={ICON}/>
+              </TouchableOpacity>
             </View>
 
 
@@ -84,4 +92,13 @@ const TEXT_REGISTER : TextStyle = {
   fontSize: 16,
   ...typography.textBold,
   color: color.neutral700
+}
+const ICON : ImageStyle = {
+  height:50, width: 50,
+  margin: 16
+}
+const WRAP_ICON : ViewStyle = { 
+  flexDirection: 'row',
+  justifyContent: "center",
+  marginTop: 12
 }

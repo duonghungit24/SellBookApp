@@ -64,7 +64,7 @@ function App() {
               initialState={initialNavigationState}
               onStateChange={onNavigationStateChange}
             />
-            <Loading />
+            {/* <Loading /> */}
         </SafeAreaProvider>
       </RootStoreProvider>
     </ToggleStorybook>

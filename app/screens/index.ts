@@ -6,4 +6,8 @@ export * from "./home/Home-screen"
 export * from "./login/Login-screen"
 export * from "./register/Register-screen"
 export * from "./splash/splash-screen"
+export * from "./cart/Cart-screen"
+export * from "./account/Account-screen"
+export * from "./like-book/LikeBook-screen"
+export * from "./detail-book/DetailBook-screen"
 // export other screens here

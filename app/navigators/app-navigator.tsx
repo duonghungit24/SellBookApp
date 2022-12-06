@@ -8,9 +8,9 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, HomeScreen, RegisterScreen, LoginScreen } from "../screens"
+import { WelcomeScreen, HomeScreen, RegisterScreen, LoginScreen ,DetailBookScreen} from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
-
+import BottomTabs from "./bottomTab"
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
@@ -28,6 +28,11 @@ export type NavigatorParamList = {
   homeScreen: undefined
   registerScreen: undefined
   loginScreen: undefined
+  accountScreen: undefined
+  cartScreen: undefined
+  likeBookScreen: undefined
+  bottomTabs: undefined
+  detailBookScreen: undefined
   // 🔥 Your screens go here
 }
 
@@ -46,6 +51,8 @@ const AppStack = () => {
       <Stack.Screen name="homeScreen" component={HomeScreen} />
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="registerScreen" component={RegisterScreen} />
+      <Stack.Screen name="bottomTabs" component={BottomTabs} />
+      <Stack.Screen name="detailBookScreen" component={DetailBookScreen} />
       {/** 🔥 Your screens go here */}
     </Stack.Navigator>
   )

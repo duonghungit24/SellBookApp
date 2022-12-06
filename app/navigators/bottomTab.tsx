@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { AccountScreen, HomeScreen, NotificationScreen } from "../screens"
+import { AccountScreen, HomeScreen,CartScreen } from "../screens"
 import { NavigatorParamList } from "./app-navigator"
 import { color } from "../theme"
 import { VectorIcons } from "../components"
@@ -15,9 +15,12 @@ export default function BottomTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: color.primary,
+        tabBarActiveTintColor: color.mainColor,
         tabBarInactiveTintColor: color.disable,
         headerShown: false,
+        tabBarItemStyle: {
+          padding: 5,
+        },
       }}
     >
       <Tab.Screen
@@ -26,25 +29,25 @@ export default function BottomTabs() {
         options={{
           tabBarLabel: "Trang chủ",
           tabBarIcon: ({ color, size }) => (
-            <VectorIcons type="Octicons" name="home" color={color} size={size} />
+            <VectorIcons type="FontAwesome" name="home" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="notificationScreen"
-        component={NotificationScreen}
+        name="cartScreen"
+        component={CartScreen}
         options={{
-          tabBarLabel: "Thông báo",
+          tabBarLabel: "Giỏ hàng",
           tabBarIcon: ({ color, size }) => (
-            <VectorIcons type="Octicons" name="bell-fill" color={color} size={size} />
+            <VectorIcons type="Entypo" name="shopping-cart" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name= "Tài khoản"
+        name="accountScreen"
         component={AccountScreen}
         options={{
-          tabBarLabel: translate("taikhoan"),
+          tabBarLabel: "Tài khoản",
           tabBarIcon: ({ color, size }) => (
             <VectorIcons type="Octicons" name="person-fill" color={color} size={size} />
           ),
