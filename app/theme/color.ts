@@ -22,12 +22,9 @@ export const color = {
   transparent: "rgba(0, 0, 0, 0)",
   /**
    * The screen background.
-   */
-  background: palette.white,
   /**
    * The main tinting color.
    */
-  primary: palette.orange,
   /**
    * The main tinting color, but darker.
    */
@@ -39,7 +36,37 @@ export const color = {
   /**
    * The default color of text in many components.
    */
+   warning: "#FFBE40",
+   disable: "#9FABB6", 
+  background: "#E5E5E5",
+  backgroundSoft: "#F5F6F8",
   text: palette.white,
+  primary500: "#3BB549",
+  primary: "#DE222F",
+  neutral900: "#2F4858",
+  neutral700: "#52606B",
+  neutral600: "#677987",
+  neutral500: "#7D8D9A",
+  neutral400: "#B4BFC8",
+  neutral300: "#EFF1F4",
+  neutral200: "#F6F8FA",
+  neutral100: "#F9F9F9",
+  white: "#FFF",
+  border: "#E4E7EB",
+  success: "#4AC256",
+  semanticInfo: "#2C90EC",
+  SemanticInfo100: "#EAF4FD",
+  mainColor: "#2a9d8f",
+  mainColor100: "#FFEBEF",
+  mainColor600: "#DE222F",
+  neutralDisable: "#9FABB6",
+  textMute: "#66788A",
+  black900: "#1A202C",
+  black600: "#6E737E",
+  black300: "#949CA4",
+  accent500: "#44B1DD",
+  lineColor: "#EFF1F4",
+
   /**
    * Secondary information.
    */

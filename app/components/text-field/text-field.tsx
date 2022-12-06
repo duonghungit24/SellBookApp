@@ -3,20 +3,15 @@ import { StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle } from
 import { color, spacing, typography } from "../../theme"
 import { translate, TxKeyPath } from "../../i18n"
 import { Text } from "../text/text"
+import { VectorIcons } from "../vector-icons/vector-icons"
 
 // the base styling for the container
 const CONTAINER: ViewStyle = {
-  paddingVertical: spacing[3],
+  paddingVertical: spacing[0],
 }
 
 // the base styling for the TextInput
-const INPUT: TextStyle = {
-  fontFamily: typography.primary,
-  color: color.text,
-  minHeight: 44,
-  fontSize: 18,
-  backgroundColor: color.palette.white,
-}
+
 
 // currently we have no presets, but that changes quickly when you build your app.
 const PRESETS: { [name: string]: ViewStyle } = {
@@ -60,6 +55,8 @@ export interface TextFieldProps extends TextInputProps {
   preset?: keyof typeof PRESETS
 
   forwardedRef?: any
+  typeIcon?: any
+  nameIcon?: string
 }
 
 /**
@@ -75,6 +72,8 @@ export function TextField(props: TextFieldProps) {
     style: styleOverride,
     inputStyle: inputStyleOverride,
     forwardedRef,
+    typeIcon,
+    nameIcon,
     ...rest
   } = props
 
@@ -85,14 +84,39 @@ export function TextField(props: TextFieldProps) {
   return (
     <View style={containerStyles}>
       <Text preset="fieldLabel" tx={labelTx} text={label} />
+      <View style={VIEW_INPUT}>
+       <VectorIcons
+        type={typeIcon}
+        name={nameIcon}
+        size={20}
+        color={color.neutral500}
+       />
       <TextInput
         placeholder={actualPlaceholder}
-        placeholderTextColor={color.palette.lighterGrey}
+        placeholderTextColor={color.neutral500}
         underlineColorAndroid={color.transparent}
         {...rest}
         style={inputStyles}
         ref={forwardedRef}
-      />
+        />
+      </View>
     </View>
   )
+}
+
+const VIEW_INPUT : ViewStyle = {
+  height: 48,
+  flexDirection: 'row',
+  backgroundColor: color.neutral300,
+  paddingHorizontal: 16,
+  alignItems: 'center',
+  borderRadius: 30
+}
+const INPUT: TextStyle = {
+  fontFamily: typography.primary,
+  color: color.neutral600,
+  height: 44,
+  flex: 1,
+  fontSize: 16,
+  marginLeft: 12
 }

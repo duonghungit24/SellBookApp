@@ -8,7 +8,7 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, DemoScreen, DemoListScreen } from "../screens"
+import { WelcomeScreen, HomeScreen, RegisterScreen, LoginScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 
 /**
@@ -25,8 +25,9 @@ import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
  */
 export type NavigatorParamList = {
   welcome: undefined
-  demo: undefined
-  demoList: undefined
+  homeScreen: undefined
+  registerScreen: undefined
+  loginScreen: undefined
   // 🔥 Your screens go here
 }
 
@@ -39,11 +40,12 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="welcome"
+      initialRouteName="loginScreen"
     >
       <Stack.Screen name="welcome" component={WelcomeScreen} />
-      <Stack.Screen name="demo" component={DemoScreen} />
-      <Stack.Screen name="demoList" component={DemoListScreen} />
+      <Stack.Screen name="homeScreen" component={HomeScreen} />
+      <Stack.Screen name="loginScreen" component={LoginScreen} />
+      <Stack.Screen name="registerScreen" component={RegisterScreen} />
       {/** 🔥 Your screens go here */}
     </Stack.Navigator>
   )
