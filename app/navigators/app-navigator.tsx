@@ -8,7 +8,7 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, HomeScreen, RegisterScreen, LoginScreen ,DetailBookScreen} from "../screens"
+import { WelcomeScreen, HomeScreen, RegisterScreen, LoginScreen ,DetailBookScreen, SearchBookScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 import BottomTabs from "./bottomTab"
 /**
@@ -33,6 +33,7 @@ export type NavigatorParamList = {
   likeBookScreen: undefined
   bottomTabs: undefined
   detailBookScreen: undefined
+  searchBookScreen: undefined
   // 🔥 Your screens go here
 }
 
@@ -53,6 +54,7 @@ const AppStack = () => {
       <Stack.Screen name="registerScreen" component={RegisterScreen} />
       <Stack.Screen name="bottomTabs" component={BottomTabs} />
       <Stack.Screen name="detailBookScreen" component={DetailBookScreen} />
+      <Stack.Screen name="searchBookScreen" component={SearchBookScreen} />
       {/** 🔥 Your screens go here */}
     </Stack.Navigator>
   )

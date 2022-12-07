@@ -10,4 +10,5 @@ export * from "./cart/Cart-screen"
 export * from "./account/Account-screen"
 export * from "./like-book/LikeBook-screen"
 export * from "./detail-book/DetailBook-screen"
+export * from "./search-book/SearchBook-screen"
 // export other screens here

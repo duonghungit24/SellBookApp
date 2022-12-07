@@ -40,8 +40,8 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
     <Screen style={ROOT} preset="fixed">
         <Header leftIcon headerText="Đăng nhập" style={{backgroundColor: color.white }} />
         <View style={CONTENT}>
-            <TextField nameIcon="user" typeIcon="Feather" placeholder="Email" style={[INPUT, {marginTop: 30}]} />
-            <TextField nameIcon="md-lock-closed-outline" typeIcon="Ionicons" placeholder="Mật khẩu" style={INPUT} isEye />
+            <TextField nameIcon="user" typeIcon="Feather" placeholder="Email" style={[INPUT, {marginTop: 30}]} iconLeft />
+            <TextField nameIcon="md-lock-closed-outline" typeIcon="Ionicons" placeholder="Mật khẩu" style={INPUT} isEye iconLeft/>
             <ButtonApp title="Đăng nhập" onPress={onLogin} style={BTN}/>
             <View style={WRAP_ROW}>
             <TouchableOpacity onPress={() => navigation.navigate("registerScreen")}>
@@ -54,7 +54,6 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
 
             <View style={WRAP_ICON}>
               <TouchableOpacity>
-
                 <Image source={require("./assets/facebook.png")} style={ICON}/>
               </TouchableOpacity>
               <TouchableOpacity>

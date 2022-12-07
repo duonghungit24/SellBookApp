@@ -1,4 +1,5 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
+import { AuthStoreModel } from "../auth-store/auth-store"
 import { CharacterStoreModel } from "../character-store/character-store"
 import { GeneralStoreModel } from "../general-store/general-store"
 
@@ -9,6 +10,7 @@ import { GeneralStoreModel } from "../general-store/general-store"
 export const RootStoreModel = types.model("RootStore").props({
   characterStore: types.optional(CharacterStoreModel, {} as any),
   generalStore: types.optional(GeneralStoreModel, {} as any),
+  authStore: types.optional(AuthStoreModel, {} as any)
 })
 
 /**
