@@ -8,9 +8,9 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, DemoScreen, DemoListScreen } from "../screens"
+import { WelcomeScreen, HomeScreen, RegisterScreen, LoginScreen ,DetailBookScreen, SearchBookScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
-
+import BottomTabs from "./bottomTab"
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
@@ -25,8 +25,15 @@ import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
  */
 export type NavigatorParamList = {
   welcome: undefined
-  demo: undefined
-  demoList: undefined
+  homeScreen: undefined
+  registerScreen: undefined
+  loginScreen: undefined
+  accountScreen: undefined
+  cartScreen: undefined
+  likeBookScreen: undefined
+  bottomTabs: undefined
+  detailBookScreen: undefined
+  searchBookScreen: undefined
   // 🔥 Your screens go here
 }
 
@@ -39,11 +46,15 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="welcome"
+      initialRouteName="loginScreen"
     >
       <Stack.Screen name="welcome" component={WelcomeScreen} />
-      <Stack.Screen name="demo" component={DemoScreen} />
-      <Stack.Screen name="demoList" component={DemoListScreen} />
+      <Stack.Screen name="homeScreen" component={HomeScreen} />
+      <Stack.Screen name="loginScreen" component={LoginScreen} />
+      <Stack.Screen name="registerScreen" component={RegisterScreen} />
+      <Stack.Screen name="bottomTabs" component={BottomTabs} />
+      <Stack.Screen name="detailBookScreen" component={DetailBookScreen} />
+      <Stack.Screen name="searchBookScreen" component={SearchBookScreen} />
       {/** 🔥 Your screens go here */}
     </Stack.Navigator>
   )

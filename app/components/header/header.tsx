@@ -4,8 +4,10 @@ import { HeaderProps } from "./header.props"
 import { Button } from "../button/button"
 import { Text } from "../text/text"
 import { Icon } from "../icon/icon"
-import { spacing } from "../../theme"
+import { color, spacing, typography } from "../../theme"
 import { translate } from "../../i18n/"
+import { goBack } from "../../navigators"
+import { VectorIcons } from "../vector-icons/vector-icons"
 
 // static styles
 const ROOT: ViewStyle = {
@@ -16,8 +18,14 @@ const ROOT: ViewStyle = {
   paddingBottom: spacing[5],
   justifyContent: "flex-start",
 }
-const TITLE: TextStyle = { textAlign: "center" }
-const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "center" }
+const TITLE: TextStyle = {
+  textAlign: "left",
+  fontSize: 20,
+  color: color.neutral700,
+  paddingLeft: 24,
+  ...typography.textBold,
+}
+const TITLE_MIDDLE: ViewStyle = { flex: 1 }
 const LEFT: ViewStyle = { width: 32 }
 const RIGHT: ViewStyle = { width: 32 }
 
@@ -26,7 +34,7 @@ const RIGHT: ViewStyle = { width: 32 }
  */
 export function Header(props: HeaderProps) {
   const {
-    onLeftPress,
+    onLeftPress = goBack,
     onRightPress,
     rightIcon,
     leftIcon,
@@ -41,7 +49,12 @@ export function Header(props: HeaderProps) {
     <View style={[ROOT, style]}>
       {leftIcon ? (
         <Button preset="link" onPress={onLeftPress}>
-          <Icon icon={leftIcon} />
+          <VectorIcons
+            type="Feather"
+            name={"arrow-left"}
+            color={leftIcon ? color.neutral700 : color.white}
+            size={25}
+          />
         </Button>
       ) : (
         <View style={LEFT} />
