@@ -20,6 +20,8 @@ import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 import { ToggleStorybook } from "../storybook/toggle-storybook"
 import { ErrorBoundary } from "./screens/error/error-boundary"
 import { Loading } from "./components"
+import Toast from "react-native-toast-message"
+import { toastConfig } from "./utils/toas-configs"
 
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
@@ -59,12 +61,12 @@ function App() {
     <ToggleStorybook>
       <RootStoreProvider value={rootStore}>
         <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        
-            <AppNavigator
-              initialState={initialNavigationState}
-              onStateChange={onNavigationStateChange}
-            />
-            {/* <Loading /> */}
+          <AppNavigator
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
+          />
+          {/* <Loading /> */}
+          <Toast position="top" config={toastConfig} />
         </SafeAreaProvider>
       </RootStoreProvider>
     </ToggleStorybook>
