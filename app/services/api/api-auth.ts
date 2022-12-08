@@ -11,10 +11,7 @@ export class AuthApi {
 
   async login(params): Promise<any> {
     try {
-      const response: ApiResponse<any> = await this.api.apisauce.post(
-        "/api/tai_khoan/dang_nhap_mobile",
-        params,
-      )
+      const response: ApiResponse<any> = await this.api.apisauce.post("/api/auth/login", params)
       if (!response.ok) {
         const problem = getGeneralApiProblem(response)
         if (problem) return problem

@@ -7,7 +7,7 @@ import * as storage from "../../utils/storage"
  * The key we'll be saving our state as within async storage.
  */
 const ROOT_STATE_STORAGE_KEY = "root"
-
+export let rootStore: RootStore
 /**
  * Setup the environment that all the models will be sharing.
  *
@@ -52,11 +52,10 @@ export async function setupRootStore() {
   onSnapshot(rootStore, (snapshot) => {
     const snap = { ...snapshot }
     Object.assign(snap, {
-      generalStore: {}
+      generalStore: {},
     })
     storage.save(ROOT_STATE_STORAGE_KEY, snap)
   })
-
 
   return rootStore
 }

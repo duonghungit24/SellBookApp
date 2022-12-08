@@ -2,6 +2,7 @@ import { ApisauceInstance, create, ApiResponse } from "apisauce"
 import { getGeneralApiProblem } from "./api-problem"
 import { ApiConfig, DEFAULT_API_CONFIG } from "./api-config"
 import * as Types from "./api.types"
+import { rootStore } from "../../models"
 
 /**
  * Manages all requests to the API.
@@ -41,6 +42,15 @@ export class Api {
       headers: {
         Accept: "application/json",
       },
+    })
+    this.apisauce.addRequestTransform((config) => {
+      config.headers.Authorization = rootStore.authStore.accessToken
+        ? "Bearer" + rootStore.authStore.accessToken
+        : ""
+      __DEV__ && console.log("Request =>> ", config)
+    })
+    this.apisauce.addResponseTransform((transform) => {
+      __DEV__ && console.log("Response =>> ", transform)
     })
   }
 

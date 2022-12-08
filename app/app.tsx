@@ -65,7 +65,7 @@ function App() {
             initialState={initialNavigationState}
             onStateChange={onNavigationStateChange}
           />
-          {/* <Loading /> */}
+          <Loading />
           <Toast position="top" config={toastConfig} />
         </SafeAreaProvider>
       </RootStoreProvider>

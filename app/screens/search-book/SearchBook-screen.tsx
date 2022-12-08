@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, TextStyle, TouchableOpacity } from "react-native"
+import { ViewStyle, View, TextStyle, TouchableOpacity, FlatList } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
 import { Screen, Text, TextField } from "../../components"
@@ -37,11 +37,25 @@ export const SearchBookScreen: FC<StackScreenProps<NavigatorParamList, "searchBo
             placeholder="Tìm kiếm sách"
             style={{ flex: 1, marginRight: 12 }}
             autoFocus={true}
+            onSubmitEditing={() => navigation.navigate("resultSearchBookScreen")}
+            returnKeyLabel="Xong"
           />
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={TEXT_CLOSE}>Đóng</Text>
           </TouchableOpacity>
         </View>
+        <FlatList
+          data={[1, 2, 3, 4]}
+          keyExtractor={(_, index) => `${index}`}
+          renderItem={({ item, index }) => {
+            return (
+              <TouchableOpacity style={BTN}>
+                <Text style={TEXT_RESULT}>hello</Text>
+              </TouchableOpacity>
+            )
+          }}
+          ItemSeparatorComponent={() => <View style={LINE} />}
+        />
       </Screen>
     )
   },
@@ -56,4 +70,15 @@ const WRAP_SEARCH: ViewStyle = {
 const TEXT_CLOSE: TextStyle = {
   color: color.neutral900,
   ...typography.textMedium,
+}
+const LINE: ViewStyle = {
+  height: 0.5,
+  backgroundColor: color.neutral300,
+}
+const TEXT_RESULT: TextStyle = {
+  color: color.neutral600,
+  ...typography.textBold,
+}
+const BTN: ViewStyle = {
+  padding: 12,
 }

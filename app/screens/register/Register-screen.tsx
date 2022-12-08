@@ -40,34 +40,41 @@ export const RegisterScreen: FC<StackScreenProps<NavigatorParamList, "register">
         <Header leftIcon headerText="Đăng kí" style={{ backgroundColor: color.white }} />
         <View style={CONTENT}>
           <TextField
+            label="Họ tên"
             nameIcon="user"
             typeIcon="Feather"
-            placeholder="Tên"
+            placeholder="Nhập họ tên"
             iconLeft
             onChangeText={setName}
           />
           <TextField
-            nameIcon="user"
-            typeIcon="Feather"
-            placeholder="Email"
+            label="Email"
+            nameIcon="email"
+            typeIcon="MaterialIcons"
+            placeholder="Nhập email"
             iconLeft
             onChangeText={setEmail}
+            style={INPUT}
           />
           <TextField
+            label="Mật khẩu"
             nameIcon="md-lock-closed-outline"
             typeIcon="Ionicons"
-            placeholder="Mật khẩu"
+            placeholder="Nhập mật khẩu"
             isEye
             iconLeft
             onChangeText={setPassword}
+            style={INPUT}
           />
           <TextField
+            label="Nhập lại mật khẩu"
             nameIcon="md-lock-closed-outline"
             typeIcon="Ionicons"
             placeholder="Nhập lại mật khẩu"
             isEye
             iconLeft
             onChangeText={setRePassword}
+            style={INPUT}
           />
           <ButtonApp title="Đăng kí" onPress={onRegister} style={BTN} />
           <ButtonApp
@@ -90,4 +97,7 @@ const CONTENT: ViewStyle = {
 const BTN: ViewStyle = {
   borderRadius: 30,
   marginTop: 40,
+}
+const INPUT: ViewStyle = {
+  paddingTop: 12,
 }

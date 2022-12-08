@@ -12,3 +12,8 @@ export * from "./like-book/LikeBook-screen"
 export * from "./detail-book/DetailBook-screen"
 export * from "./search-book/SearchBook-screen"
 // export other screens here
+export * from "./forgot-password/forgot-password-screen"
+export * from "./infor-individual/infor-individual-screen"
+export * from "./change-password/change-password-screen"
+export * from "./view-all-book/view-all-book-screen"
+export * from "./search-book/result-search-book"

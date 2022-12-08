@@ -1,5 +1,13 @@
 import React, { useState } from "react"
-import { StyleProp, TextInput, TextInputProps, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+import {
+  StyleProp,
+  TextInput,
+  TextInputProps,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native"
 import { color, spacing, typography } from "../../theme"
 import { translate, TxKeyPath } from "../../i18n"
 import { Text } from "../text/text"
@@ -11,7 +19,6 @@ const CONTAINER: ViewStyle = {
 }
 
 // the base styling for the TextInput
-
 
 // currently we have no presets, but that changes quickly when you build your app.
 const PRESETS: { [name: string]: ViewStyle } = {
@@ -57,7 +64,7 @@ export interface TextFieldProps extends TextInputProps {
   forwardedRef?: any
   typeIcon?: any
   nameIcon?: string
-  isEye?: boolean 
+  isEye?: boolean
   iconLeft?: boolean
 }
 
@@ -80,7 +87,7 @@ export function TextField(props: TextFieldProps) {
     iconLeft = false,
     ...rest
   } = props
-  
+
   const [secureTextEntry, setSecureTextEntry] = useState(true)
   const containerStyles = [CONTAINER, PRESETS[preset], styleOverride]
   const inputStyles = [INPUT, inputStyleOverride]
@@ -92,29 +99,27 @@ export function TextField(props: TextFieldProps) {
 
   return (
     <View style={containerStyles}>
-      <Text preset="fieldLabel" tx={labelTx} text={label} />
-    
+      {label && <Text style={LABEL} preset="fieldLabel" tx={labelTx} text={label} />}
+
       <View style={VIEW_INPUT}>
-      {
-        iconLeft &&  
-        <VectorIcons
-        type={typeIcon || "Feather"}
-        name={nameIcon || "search"}
-        size={20}
-        color={color.neutral500}
-       />
-      }
-      <TextInput
-        placeholder={actualPlaceholder}
-        placeholderTextColor={color.neutral500}
-        underlineColorAndroid={color.transparent}
-        secureTextEntry={isEye && secureTextEntry}
-        {...rest}
-        style={inputStyles}
-        ref={forwardedRef}
+        {iconLeft && (
+          <VectorIcons
+            type={typeIcon || "Feather"}
+            name={nameIcon || "search"}
+            size={20}
+            color={color.neutral500}
+          />
+        )}
+        <TextInput
+          placeholder={actualPlaceholder}
+          placeholderTextColor={color.neutral500}
+          underlineColorAndroid={color.transparent}
+          secureTextEntry={isEye && secureTextEntry}
+          {...rest}
+          style={inputStyles}
+          ref={forwardedRef}
         />
-        {
-        isEye && 
+        {isEye && (
           <TouchableOpacity activeOpacity={0.9} hitSlop={10} onPress={handleSecurity}>
             <VectorIcons
               type="Ionicons"
@@ -123,25 +128,31 @@ export function TextField(props: TextFieldProps) {
               color={color.neutral500}
             />
           </TouchableOpacity>
-        }
+        )}
       </View>
     </View>
   )
 }
 
-const VIEW_INPUT : ViewStyle = {
-  height: 48,
-  flexDirection: 'row',
+const VIEW_INPUT: ViewStyle = {
+  height: 46,
+  flexDirection: "row",
   backgroundColor: color.neutral300,
   paddingHorizontal: 16,
-  alignItems: 'center',
-  borderRadius: 30
+  alignItems: "center",
+  borderRadius: 24,
 }
 const INPUT: TextStyle = {
   fontFamily: typography.primary,
-  color: color.neutral600,
+  color: color.neutral500,
   height: 44,
   flex: 1,
-  fontSize: 16,
-  marginLeft: 12
+  fontSize: 14,
+  marginLeft: 12,
+}
+const LABEL: TextStyle = {
+  ...typography.textBold,
+  color: color.neutral500,
+  padding: 8,
+  fontSize: 14,
 }

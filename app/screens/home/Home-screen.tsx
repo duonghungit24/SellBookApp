@@ -45,10 +45,10 @@ export const HomeScreen: FC<StackScreenProps<NavigatorParamList, "home">> = obse
             onPressIn={() => navigation.navigate("searchBookScreen")}
           />
         </View>
-        <ScrollView showsVerticalScrollIndicator={false} >
+        <ScrollView showsVerticalScrollIndicator={false}>
           <ListBookDay />
-          <ListBookNew title="Sách mới nhất"/>
-          <ListBookNew title="Sách khuyên đọc"/> 
+          <ListBookNew title="Sách mới nhất" />
+          <ListBookNew title="Sách khuyên đọc" />
         </ScrollView>
       </Screen>
     )

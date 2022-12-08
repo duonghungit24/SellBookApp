@@ -8,7 +8,18 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, HomeScreen, RegisterScreen, LoginScreen ,DetailBookScreen, SearchBookScreen } from "../screens"
+import {
+  WelcomeScreen,
+  HomeScreen,
+  RegisterScreen,
+  LoginScreen,
+  DetailBookScreen,
+  SearchBookScreen,
+  ForgotPasswordScreen,
+  ChangePasswordScreen,
+  InforIndividualScreen,
+  ResultSearchBookScreen,
+} from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 import BottomTabs from "./bottomTab"
 /**
@@ -34,6 +45,10 @@ export type NavigatorParamList = {
   bottomTabs: undefined
   detailBookScreen: undefined
   searchBookScreen: undefined
+  forgotPasswordScreen: undefined
+  changePasswordScreen: undefined
+  inforIndividualScreen: undefined
+  resultSearchBookScreen: undefined
   // 🔥 Your screens go here
 }
 
@@ -55,6 +70,10 @@ const AppStack = () => {
       <Stack.Screen name="bottomTabs" component={BottomTabs} />
       <Stack.Screen name="detailBookScreen" component={DetailBookScreen} />
       <Stack.Screen name="searchBookScreen" component={SearchBookScreen} />
+      <Stack.Screen name="forgotPasswordScreen" component={ForgotPasswordScreen} />
+      <Stack.Screen name="changePasswordScreen" component={ChangePasswordScreen} />
+      <Stack.Screen name="inforIndividualScreen" component={InforIndividualScreen} />
+      <Stack.Screen name="resultSearchBookScreen" component={ResultSearchBookScreen} />
       {/** 🔥 Your screens go here */}
     </Stack.Navigator>
   )

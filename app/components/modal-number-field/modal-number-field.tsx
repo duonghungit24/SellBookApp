@@ -3,12 +3,13 @@ import { StyleProp, TextInput, TextStyle, TouchableOpacity, View, ViewStyle } fr
 import { observer } from "mobx-react-lite"
 import { color, typography } from "../../theme"
 import { Text } from "../text/text"
-import Modal from 'react-native-modal'
+import Modal from "react-native-modal"
 import { TextField } from "../text-field/text-field"
+import { configs } from "../../utils/configs"
 
 const CONTAINER: ViewStyle = {
   justifyContent: "center",
-  alignItems: 'center'
+  alignItems: "center",
 }
 
 export interface ModalNumberFieldProps {
@@ -28,7 +29,7 @@ export interface ModalNumberFieldProps {
 export const ModalNumberField = observer(function ModalNumberField(props: ModalNumberFieldProps) {
   const { style, isVisible, onPressCancel, onPressDone, amountDefault } = props
   const styles = Object.assign({}, CONTAINER, style)
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState("")
 
   useEffect(() => {
     if (isVisible) {
@@ -37,31 +38,26 @@ export const ModalNumberField = observer(function ModalNumberField(props: ModalN
   }, [isVisible])
 
   return (
-    <Modal
-      avoidKeyboard
-      isVisible={isVisible}
-      style={styles}>
+    <Modal avoidKeyboard isVisible={isVisible} style={styles}>
       <View style={CONTENT}>
         <View style={VIEW_INPUT}>
           <Text style={TITLE}>Số lượng</Text>
           <TextInput
-           maxLength={3}
-           style={{ width: '80%' }}
-           keyboardType='number-pad'
-           value={amount}
-           onChangeText={(value) => {
-             if (!isNaN(Number(value))) {
-               setAmount(`${Number(value)}`)
-             } else {
-               setAmount('0')
-             }
-           }}
+            maxLength={3}
+            style={{ width: 250, padding: 12, borderRadius: 4, borderWidth: 1 }}
+            keyboardType="number-pad"
+            value={amount}
+            onChangeText={(value) => {
+              if (!isNaN(Number(value))) {
+                setAmount(`${Number(value)}`)
+              } else {
+                setAmount("0")
+              }
+            }}
           />
         </View>
         <View style={VIEW_ROW_BTN}>
-          <TouchableOpacity
-            style={BTN}
-            onPress={onPressCancel}>
+          <TouchableOpacity style={BTN} onPress={onPressCancel}>
             <Text style={TEXT_CANCEL}>Hủy</Text>
           </TouchableOpacity>
           <View style={LINE_SPACE} />
@@ -70,7 +66,8 @@ export const ModalNumberField = observer(function ModalNumberField(props: ModalN
             onPress={() => {
               onPressCancel()
               onPressDone(amount)
-            }}>
+            }}
+          >
             <Text style={TEXT_DONE}>Xong</Text>
           </TouchableOpacity>
         </View>
@@ -84,40 +81,41 @@ const CONTENT: ViewStyle = {
   width: 300,
   backgroundColor: color.white,
   borderRadius: 6,
-  justifyContent: 'center',
-  alignItems: 'center'
+  justifyContent: "center",
+  alignItems: "center",
 }
 const TITLE: TextStyle = {
   color: color.neutral700,
-  ...typography.textBold
+  ...typography.textBold,
 }
 const BTN: ViewStyle = {
-  height: 40, width: '50%',
-  justifyContent: 'center',
-  alignItems: 'center'
+  height: 40,
+  width: "50%",
+  justifyContent: "center",
+  alignItems: "center",
 }
 const VIEW_ROW_BTN: ViewStyle = {
-  flexDirection: 'row',
-  alignItems: 'center',
+  flexDirection: "row",
+  alignItems: "center",
   borderTopWidth: 0.5,
-  borderTopColor: color.disable
+  borderTopColor: color.disable,
 }
 const LINE_SPACE: ViewStyle = {
   width: 0.5,
-  height: '100%',
-  backgroundColor: color.disable
+  height: "100%",
+  backgroundColor: color.disable,
 }
 const VIEW_INPUT: ViewStyle = {
   flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center'
+  justifyContent: "center",
 }
 const TEXT_DONE: TextStyle = {
-  color: color.primary,
+  color: color.mainColor,
   fontSize: 16,
-  ...typography.textBold
+  ...typography.textBold,
 }
 const TEXT_CANCEL: TextStyle = {
   fontSize: 16,
-  ...typography.textBold
+  ...typography.textBold,
+  color: color.neutral500,
 }

@@ -16,9 +16,9 @@ import { Header, IncreaseOrDecrease, Screen, Text, TextField } from "../../compo
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, typography } from "../../theme"
-import { configs  } from "../../utils/configs"
+import { configs } from "../../utils/configs"
 import { ButtonApp } from "../../components/button-app/button-app"
-import {utils} from "../../utils"
+import { utils } from "../../utils"
 // STOP! READ ME FIRST!
 // To fix the TS error below, you'll need to add the following things in your navigation config:
 // - Add `detailBook: undefined` to NavigatorParamList
@@ -28,8 +28,8 @@ import {utils} from "../../utils"
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
-export const DetailBookScreen: FC<StackScreenProps<NavigatorParamList, "detailBook">> = observer(
-  function DetailBookScreen() {
+export const DetailBookScreen: FC<StackScreenProps<NavigatorParamList, "detailBookScreen">> =
+  observer(function DetailBookScreen() {
     // Pull in one of our MST stores
     // const { someStore, anotherStore } = useStores()
 
@@ -46,11 +46,7 @@ export const DetailBookScreen: FC<StackScreenProps<NavigatorParamList, "detailBo
             <ItemDetail title="Tác giả" value="kihosima" />
             <TitlHead title="Bình luận sách" />
             <View>
-              <TextInput 
-                placeholder="Nhập bình luận"
-                multiline
-              style={COMMENT}
-              />
+              <TextInput placeholder="Nhập bình luận" multiline style={COMMENT} />
               <ButtonApp title="Gửi" style={BTN_SEND} onPress={() => {}} />
             </View>
             <TitlHead title="Sách liên quan" />
@@ -58,8 +54,7 @@ export const DetailBookScreen: FC<StackScreenProps<NavigatorParamList, "detailBo
         </View>
       </Screen>
     )
-  },
-)
+  })
 
 interface ItemDetailBookProps {}
 const ItemDetailBook = (props: ItemDetailBookProps) => {
@@ -74,7 +69,9 @@ const ItemDetailBook = (props: ItemDetailBookProps) => {
       <View style={WRAP_CONTENT}>
         <Text style={NAME_BOOK}>Con duong xua em di</Text>
         <Text style={NAME_AUTHOR}>Duong Hung</Text>
-        <Text style={TITLE_PRICE} >Giá bán: <Text style={PRICE}>{utils.displayMoney(30000)}</Text></Text>
+        <Text style={TITLE_PRICE}>
+          Giá bán: <Text style={PRICE}>{utils.displayMoney(30000)}</Text>
+        </Text>
         <View style={VIEW_CHANGE_TOTAL}>
           <Text style={COUNT}>Số lượng:</Text>
           <IncreaseOrDecrease
@@ -91,18 +88,25 @@ const ItemDetailBook = (props: ItemDetailBookProps) => {
 }
 
 const TitlHead = (props) => {
-    return (
-      <View>
-        <Text style={TITLE_HEAD}>{props.title}</Text>
-      </View>
-    )
+  return (
+    <View>
+      <Text style={TITLE_HEAD}>{props.title}</Text>
+    </View>
+  )
 }
 
 const ItemDetail = (props) => {
   return (
-    <View style={[WRAP_ITEM, {borderBottomWidth: 0.5, paddingBottom: 16, borderBottomColor: color.neutral400}]}>
-      <Text style={{color: color.neutral500, ...typography.textMedium,flex: 1}}>{props.title}</Text>
-      <Text style={{flex: 2, color: color.neutral600}}>{props.value}</Text>
+    <View
+      style={[
+        WRAP_ITEM,
+        { borderBottomWidth: 0.5, paddingBottom: 16, borderBottomColor: color.neutral400 },
+      ]}
+    >
+      <Text style={{ color: color.neutral500, ...typography.textMedium, flex: 1 }}>
+        {props.title}
+      </Text>
+      <Text style={{ flex: 2, color: color.neutral600 }}>{props.value}</Text>
     </View>
   )
 }
@@ -144,36 +148,36 @@ const BTN_ADD: ViewStyle = {
   bottom: 0,
   width: "100%",
 }
-const VIEW_CHANGE_TOTAL : ViewStyle = {
+const VIEW_CHANGE_TOTAL: ViewStyle = {
   flexDirection: "row",
   justifyContent: "space-between",
-  marginTop: 16
+  marginTop: 16,
 }
-const COUNT : TextStyle = {
-  ...typography.textMedium,
-  color: color.neutral500
-}
-const TITLE_HEAD :TextStyle = {
-  ...typography.textBold,
-  color: color.neutral900,
-  paddingVertical: 20
-}
-const TITLE_PRICE : TextStyle = {
+const COUNT: TextStyle = {
   ...typography.textMedium,
   color: color.neutral500,
-  marginTop: 12
 }
-const PRICE : TextStyle = {
+const TITLE_HEAD: TextStyle = {
+  ...typography.textBold,
+  color: color.neutral900,
+  paddingVertical: 20,
+}
+const TITLE_PRICE: TextStyle = {
+  ...typography.textMedium,
+  color: color.neutral500,
+  marginTop: 12,
+}
+const PRICE: TextStyle = {
   ...typography.textMedium,
   color: color.neutral600,
 }
-const COMMENT : ViewStyle = {
-    minHeight: 44,
-    borderRadius: 4,
-    borderColor: color.neutral400,
-    borderWidth: 1,
-    paddingHorizontal: 12
+const COMMENT: ViewStyle = {
+  minHeight: 44,
+  borderRadius: 4,
+  borderColor: color.neutral400,
+  borderWidth: 1,
+  paddingHorizontal: 12,
 }
 const BTN_SEND: ViewStyle = {
-  marginTop: 12
+  marginTop: 12,
 }

@@ -17,15 +17,13 @@ import { ItemBook } from "./Item-book"
 export const ListBookNew = observer(function ListBookNew({ title, onPressAll }: any) {
   return (
     <View style={WRAP_LIST}>
-      <HeaderListBook title={title} style={{paddingHorizontal: 12}} onPressAll={onPressAll}/>
+      <HeaderListBook title={title} style={{ paddingHorizontal: 12 }} onPressAll={onPressAll} />
       <View style={WRAP_ITEM}>
         {[1, 2, 3, 4, 5, 6].map((item, index) => {
           return (
-            <>
-              <View key={index} style={{ width: "33%" }}>
-                <ItemBook style={{width: "100%", paddingHorizontal: index % 2 != 0 ? 8 : 0}} />
-              </View>
-            </>
+            <View key={index} style={{ width: "33%" }}>
+              <ItemBook style={{ width: "100%", paddingHorizontal: index % 2 != 0 ? 8 : 0 }} />
+            </View>
           )
         })}
       </View>
@@ -54,8 +52,8 @@ const WRAP_ITEM: ViewStyle = {
   paddingHorizontal: 12,
 }
 const WRAP_LIST: ViewStyle = {
-  marginTop: 12,
   backgroundColor: color.white,
+  paddingVertical: 12,
 }
 const WRAP_HEAD: ViewStyle = {
   flexDirection: "row",

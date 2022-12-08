@@ -8,6 +8,7 @@ import { Header, Screen, Text, VectorIcons } from "../../components"
 // import { useStores } from "../../models"
 import { color, typography } from "../../theme"
 import { configs } from "../../utils/configs"
+import { useStores } from "../../models"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.white,
@@ -24,13 +25,12 @@ const ROOT: ViewStyle = {
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
 export const AccountScreen: FC<StackScreenProps<NavigatorParamList, "account">> = observer(
-  function AccountScreen({navigation}) {
+  function AccountScreen({ navigation }) {
     // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
-
+    const { authStore } = useStores()
 
     const logOut = () => {
-      navigation.navigate("loginScreen")
+      authStore.logout()
     }
     // Pull in navigation via hook
     // const navigation = useNavigation()
@@ -39,9 +39,22 @@ export const AccountScreen: FC<StackScreenProps<NavigatorParamList, "account">> 
         <Header leftIcon={false} style={{ backgroundColor: color.white }} />
         <Avatar />
         <View style={{ flex: 1, paddingHorizontal: 16 }}>
-          <ItemAccount nameIcon="user" title="Thông tin cá nhân" onPress={() => {}} />
-          <ItemAccount nameIcon="unlock" title="Đổi mật khẩu" onPress={() => {}} />
-          <ItemAccount typeIcon="AntDesign" nameIcon="contacts" title="Liên hệ phản hồi" onPress={() => {}} />
+          <ItemAccount
+            nameIcon="user"
+            title="Thông tin cá nhân"
+            onPress={() => navigation.navigate("inforIndividualScreen")}
+          />
+          <ItemAccount
+            nameIcon="unlock"
+            title="Đổi mật khẩu"
+            onPress={() => navigation.navigate("changePasswordScreen")}
+          />
+          <ItemAccount
+            typeIcon="AntDesign"
+            nameIcon="contacts"
+            title="Liên hệ phản hồi"
+            onPress={() => {}}
+          />
           <ItemAccount nameIcon="log-out" title="Đăng xuất" onPress={logOut} />
         </View>
       </Screen>
