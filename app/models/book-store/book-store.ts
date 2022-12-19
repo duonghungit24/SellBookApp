@@ -1,6 +1,7 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { async } from "validate.js"
-import { BookApi } from "../../services/api"
+import { BookApi } from "../../services/api/api-book"
+
 import { withEnvironment } from "../extensions/with-environment"
 import { withRootStore } from "../extensions/with-root-store"
 /**
@@ -16,7 +17,12 @@ export const BookStoreModel = types
     getAllBook: async (params) => {
       const bookApi = new BookApi(self.environment.api)
       const result = await bookApi.getAllBook(params)
-      console.log("result", result)
+      return result
+    },
+    getDetailBook: async (id) => {
+      const bookApi = new BookApi(self.environment.api)
+      const result = await bookApi.getDetailBook(id)
+      return result
     },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
 

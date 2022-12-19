@@ -27,10 +27,10 @@ export const SplashScreen: FC<StackScreenProps<NavigatorParamList, "splashScreen
     const { authStore } = useStores()
 
     useEffect(() => {
-      if (!authStore.isIntro && !authStore.accessToken) {
+      if (!authStore.accessToken) {
         navigation.reset({
           index: 0,
-          routes: [{ name: "welcomeScreen" }],
+          routes: [{ name: "welcome" }],
         })
       } else if (authStore.accessToken) {
         navigation.reset({

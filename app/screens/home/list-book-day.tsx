@@ -17,19 +17,23 @@ import { ItemBook } from "./Item-book"
 import { HeaderListBook } from "./list-book-new"
 import { navigate } from "../../navigators"
 
-export const ListBookDay = observer(function ListBookDay({ item }: any) {
+export const ListBookDay = observer(function ListBookDay({ listBook, style }: any) {
   return (
-    <View style={{ backgroundColor: color.white, paddingBottom: 12 }}>
-      <HeaderListBook title="Sách mới nhất" style={{ paddingHorizontal: 12 }} />
+    <View style={[{ backgroundColor: color.white, paddingBottom: 12 }, style]}>
+      <HeaderListBook title="Sách nổi bật" style={{ paddingHorizontal: 12 }} />
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         style={{ paddingHorizontal: 6 }}
       >
-        {[1, 2, 3, 4, 5].map((item, index) => {
+        {(listBook || []).map((item, index) => {
           return (
             <TouchableOpacity key={index} style={{ paddingHorizontal: 6 }}>
-              <ItemBook onPress={() => navigate("detailBookScreen")} />
+              <ItemBook
+                item={item}
+                url={item?.ProductImages[0]?.url}
+                onPress={() => navigate("detailBookScreen", { itemDetail: item })}
+              />
             </TouchableOpacity>
           )
         })}

@@ -13,17 +13,29 @@ import { IncreaseOrDecrease, Text, VectorIcons } from "../../components"
 import { configs } from "../../utils/configs"
 import { color, typography } from "../../theme"
 import { ItemBook } from "./Item-book"
+import { navigate } from "../../navigators"
 
-export const ListBookNew = observer(function ListBookNew({ title, onPressAll }: any) {
+export const ListBookNew = observer(function ListBookNew({
+  listBook,
+  title,
+  onPressAll,
+  style,
+}: any) {
   return (
-    <View style={WRAP_LIST}>
+    <View style={[WRAP_LIST, style]}>
       <HeaderListBook title={title} style={{ paddingHorizontal: 12 }} onPressAll={onPressAll} />
       <View style={WRAP_ITEM}>
-        {[1, 2, 3, 4, 5, 6].map((item, index) => {
+        {(listBook || []).map((item, index) => {
+          // console.log(item.ProductImages[0].url)
           return (
-            <View key={index} style={{ width: "33%" }}>
-              <ItemBook style={{ width: "100%", paddingHorizontal: index % 2 != 0 ? 8 : 0 }} />
-            </View>
+            <TouchableOpacity key={index} style={{ width: "33%" }}>
+              <ItemBook
+                item={item}
+                onPress={() => navigate("detailBookScreen", { itemDetail: item })}
+                url={item?.ProductImages[0]?.url}
+                style={{ width: "100%", paddingHorizontal: index % 2 != 0 ? 6 : 0 }}
+              />
+            </TouchableOpacity>
           )
         })}
       </View>

@@ -56,6 +56,8 @@ export interface TextFieldProps extends TextInputProps {
    */
   inputStyle?: StyleProp<TextStyle>
 
+  viewInputStyle?: StyleProp<ViewStyle>
+
   /**
    * Various look & feels.
    */
@@ -85,6 +87,7 @@ export function TextField(props: TextFieldProps) {
     nameIcon,
     isEye,
     iconLeft = false,
+    viewInputStyle,
     ...rest
   } = props
 
@@ -101,7 +104,7 @@ export function TextField(props: TextFieldProps) {
     <View style={containerStyles}>
       {label && <Text style={LABEL} preset="fieldLabel" tx={labelTx} text={label} />}
 
-      <View style={VIEW_INPUT}>
+      <View style={[VIEW_INPUT, viewInputStyle]}>
         {iconLeft && (
           <VectorIcons
             type={typeIcon || "Feather"}

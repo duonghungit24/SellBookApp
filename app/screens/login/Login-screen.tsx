@@ -31,7 +31,6 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
     const [email, setEmail] = useState<string>("khachuy469@gmail.com")
     const [password, setPassword] = useState<string>("123456")
     const onLogin = () => {
-      navigation.navigate("bottomTabs")
       authStore.login({
         email,
         password,

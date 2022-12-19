@@ -45,7 +45,7 @@ export class Api {
     })
     this.apisauce.addRequestTransform((config) => {
       config.headers.Authorization = rootStore.authStore.accessToken
-        ? "Bearer" + rootStore.authStore.accessToken
+        ? "Bearer " + rootStore.authStore.accessToken
         : ""
       __DEV__ && console.log("Request =>> ", config)
     })

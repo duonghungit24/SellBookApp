@@ -32,6 +32,8 @@ export const AccountScreen: FC<StackScreenProps<NavigatorParamList, "account">> 
     const logOut = () => {
       authStore.logout()
     }
+
+    console.log("token", authStore.accessToken)
     // Pull in navigation via hook
     // const navigation = useNavigation()
     return (
@@ -110,7 +112,11 @@ const ItemAccount = (props: ItemAccountProps) => {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 30,
+        marginTop: 24,
+        borderRadius: 12,
+        borderWidth: 1,
+        padding: 12,
+        borderColor: color.neutral300,
       }}
       onPress={props.onPress}
     >

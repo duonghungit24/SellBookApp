@@ -25,7 +25,6 @@ export async function createEnvironment() {
  * Setup the root state.
  */
 export async function setupRootStore() {
-  let rootStore: RootStore
   let data: any
 
   // prepare the environment that will be associated with the RootStore.

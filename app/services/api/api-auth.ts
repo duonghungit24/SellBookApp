@@ -23,12 +23,37 @@ export class AuthApi {
     }
   }
 
+  async register(params): Promise<any> {
+    try {
+      const response: ApiResponse<any> = await this.api.apisauce.post("/api/auth/register", params)
+      if (!response.ok) {
+        const problem = getGeneralApiProblem(response)
+        if (problem) return problem
+      }
+      return response.data
+    } catch (e) {
+      __DEV__ && console.tron.log(e.message)
+      return { kind: "bad-data" }
+    }
+  }
+
   async changePassword(params): Promise<any> {
     try {
-      const response: ApiResponse<any> = await this.api.apisauce.post(
-        "/api/tai_khoan/doi_mat_khau",
-        params,
-      )
+      const response: ApiResponse<any> = await this.api.apisauce.patch("/api/auth/updatePW", params)
+      if (!response.ok) {
+        const problem = getGeneralApiProblem(response)
+        if (problem) return problem
+      }
+      return response.data
+    } catch (e) {
+      __DEV__ && console.tron.log(e.message)
+      return { kind: "bad-data" }
+    }
+  }
+
+  async getUser(): Promise<any> {
+    try {
+      const response: ApiResponse<any> = await this.api.apisauce.get("/user/getme")
       if (!response.ok) {
         const problem = getGeneralApiProblem(response)
         if (problem) return problem

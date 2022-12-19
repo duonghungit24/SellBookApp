@@ -5,22 +5,24 @@ import { IncreaseOrDecrease, Text, VectorIcons } from "../../components"
 import { configs } from "../../utils/configs"
 import { color, typography } from "../../theme"
 import { utils } from "../../utils"
+import { DEFAULT_API_CONFIG } from "../../services/api/api-config"
 
-export const ItemBook = observer(function ItemBook({ item, style, onPress }: any) {
+export const ItemBook = observer(function ItemBook({ item, url, style, onPress }: any) {
   return (
     <TouchableOpacity style={[WRAP_ITEM_BOOK, style]} activeOpacity={0.9} onPress={onPress}>
       <Image
         source={{
-          uri: "https://reactnative.dev/img/tiny_logo.png",
+          uri: `${DEFAULT_API_CONFIG.url}/${url}`,
         }}
         style={IMAGE_BOOK}
       />
-
       <Text style={NAME_BOOK} numberOfLines={1}>
-        Hom qua anh mo hay tat ca
+        {item?.name}
       </Text>
-      <Text style={AUTHOR}>Duong hung</Text>
-      <Text style={PRICE}>{utils.displayMoney(20000)}</Text>
+      <Text style={AUTHOR} numberOfLines={1}>
+        {item?.author}
+      </Text>
+      <Text style={PRICE}>{utils.displayMoney(item?.priceSelling)}đ</Text>
     </TouchableOpacity>
   )
 })
@@ -29,6 +31,7 @@ const IMAGE_BOOK: ImageStyle = {
   flex: 1,
   resizeMode: "cover",
   borderRadius: 8,
+  padding: 12,
 }
 const WRAP_ITEM_BOOK: ViewStyle = {
   width: configs.windowWidth / 3,
@@ -39,6 +42,7 @@ const NAME_BOOK: TextStyle = {
   fontSize: 14,
   ...typography.textMedium,
   color: color.neutral600,
+  marginTop: 6,
 }
 const AUTHOR: TextStyle = {
   color: color.neutral500,

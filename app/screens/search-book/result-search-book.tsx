@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import {
   ViewStyle,
@@ -8,6 +8,7 @@ import {
   Image,
   ImageStyle,
   FlatList,
+  ActivityIndicator,
 } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
@@ -17,6 +18,8 @@ import { Header, Screen, Text, TextField } from "../../components"
 import { color, typography } from "../../theme"
 import { configs } from "../../utils/configs"
 import { utils } from "../../utils"
+import { useStores } from "../../models"
+import { DEFAULT_API_CONFIG } from "../../services/api/api-config"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.white,
@@ -34,48 +37,91 @@ const ROOT: ViewStyle = {
 // @ts-ignore
 export const ResultSearchBookScreen: FC<
   StackScreenProps<NavigatorParamList, "resultSearchBookScreen">
-> = observer(function ResultSearchBookScreen({ navigation }) {
+> = observer(function ResultSearchBookScreen({ navigation, route }) {
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-
+  const textSearch = route.params.textSearch
+  const { bookStore } = useStores()
+  const [listBook, setListBook] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  useEffect(() => {
+    getListBook()
+  }, [])
+  const getListBook = async () => {
+    setIsLoading(true)
+    const result = await bookStore.getAllBook({
+      search: textSearch,
+      category: "",
+      page: 0,
+      title: "",
+      type: "",
+    })
+    setIsLoading(false)
+    if (result.isSuccess) {
+      const data = result.data.rows || []
+      setListBook(data)
+    }
+  }
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
     <Screen style={ROOT} preset="fixed">
       <Header leftIcon headerText="Kết quả tìm kiếm" style={{ backgroundColor: color.white }} />
-      <View style={WRAP_SEARCH}>
-        <FlatList
-          data={[1, 2, 3, 4, 5]}
-          keyExtractor={(_, index) => `${index}`}
-          renderItem={({ item, index }) => {
-            return <ItemBookSearch onPressDetail={() => navigation.navigate("detailBookScreen")} />
-          }}
-        />
-      </View>
+      {isLoading ? (
+        <ActivityIndicator style={{ padding: 16 }} />
+      ) : (
+        <View style={WRAP_SEARCH}>
+          <FlatList
+            data={listBook}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(_, index) => `${index}`}
+            renderItem={({ item, index }) => {
+              return (
+                <ItemBookSearch
+                  dataDetail={item}
+                  onPressDetail={() =>
+                    navigation.navigate("detailBookScreen", { itemDetail: item })
+                  }
+                />
+              )
+            }}
+            ListEmptyComponent={() => <ListEmty />}
+          />
+        </View>
+      )}
     </Screen>
   )
 })
 
 const ItemBookSearch = (props) => {
-  const { onPressDetail } = props
+  const { onPressDetail, dataDetail = {} } = props
+  console.log(`${DEFAULT_API_CONFIG.url}/${dataDetail?.ProductImages[0].url}`)
   return (
     <TouchableOpacity style={WRAP_ITEM_BOOK} onPress={onPressDetail}>
       <View style={VIEW_IMAGE}>
         <Image
           source={{
-            uri: "https://reactnative.dev/img/tiny_logo.png",
+            uri: `${DEFAULT_API_CONFIG.url}/${dataDetail?.ProductImages[0].url}`,
           }}
           style={IMAGE}
         />
       </View>
       <View style={{ marginLeft: 16, justifyContent: "space-evenly" }}>
-        <Text style={NAME_BOOK}>Ten sach day</Text>
-        <Text style={PRICE}>{utils.displayMoney(200000)}</Text>
+        <Text style={NAME_BOOK}>{dataDetail.name}</Text>
+        <Text style={PRICE}>{utils.displayMoney(dataDetail.priceSelling)}</Text>
       </View>
     </TouchableOpacity>
   )
 }
 
+const ListEmty = () => {
+  return (
+    <View>
+      <Text style={{ color: color.neutral700, fontSize: 16, ...typography.textBold }}>
+        Không có dữ liệu
+      </Text>
+    </View>
+  )
+}
 const WRAP_SEARCH: ViewStyle = {
   flex: 1,
   paddingHorizontal: 12,

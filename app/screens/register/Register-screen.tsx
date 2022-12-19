@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View } from "react-native"
+import { ViewStyle, View, ScrollView } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
 import { Header, Screen, Text, TextField } from "../../components"
@@ -8,6 +8,7 @@ import { Header, Screen, Text, TextField } from "../../components"
 // import { useStores } from "../../models"
 import { color } from "../../theme"
 import { ButtonApp } from "../../components/button-app/button-app"
+import { useStores } from "../../models"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.white,
@@ -26,63 +27,102 @@ const ROOT: ViewStyle = {
 export const RegisterScreen: FC<StackScreenProps<NavigatorParamList, "register">> = observer(
   function RegisterScreen({ navigation }) {
     // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
+    const { authStore } = useStores()
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [rePassword, setRePassword] = useState("")
+    const [phone, setPhone] = useState("")
+    const [address, setAddress] = useState("")
 
-    const onRegister = () => {}
+    const onRegister = () => {
+      const params = {
+        username: name,
+        email,
+        password,
+        age: 21,
+        address: "ha noi",
+        phone: "0123456789",
+      }
+      console.log("par", params)
+      authStore.register(params)
+    }
     // Pull in navigation via hook
     // const navigation = useNavigation()
     return (
       <Screen style={ROOT} preset="fixed">
         <Header leftIcon headerText="Đăng kí" style={{ backgroundColor: color.white }} />
         <View style={CONTENT}>
-          <TextField
-            label="Họ tên"
-            nameIcon="user"
-            typeIcon="Feather"
-            placeholder="Nhập họ tên"
-            iconLeft
-            onChangeText={setName}
-          />
-          <TextField
-            label="Email"
-            nameIcon="email"
-            typeIcon="MaterialIcons"
-            placeholder="Nhập email"
-            iconLeft
-            onChangeText={setEmail}
-            style={INPUT}
-          />
-          <TextField
-            label="Mật khẩu"
-            nameIcon="md-lock-closed-outline"
-            typeIcon="Ionicons"
-            placeholder="Nhập mật khẩu"
-            isEye
-            iconLeft
-            onChangeText={setPassword}
-            style={INPUT}
-          />
-          <TextField
-            label="Nhập lại mật khẩu"
-            nameIcon="md-lock-closed-outline"
-            typeIcon="Ionicons"
-            placeholder="Nhập lại mật khẩu"
-            isEye
-            iconLeft
-            onChangeText={setRePassword}
-            style={INPUT}
-          />
-          <ButtonApp title="Đăng kí" onPress={onRegister} style={BTN} />
-          <ButtonApp
-            title="Đã có tài khoản"
-            onPress={() => navigation.goBack()}
-            style={{ backgroundColor: color.white, marginTop: 10 }}
-            styleText={{ color: color.neutral700 }}
-          />
+          <ScrollView keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false}>
+            <TextField
+              value={name}
+              label="Họ tên"
+              nameIcon="user"
+              typeIcon="Feather"
+              placeholder="Nhập họ tên"
+              iconLeft
+              onChangeText={setName}
+            />
+            <TextField
+              value={email}
+              label="Email"
+              nameIcon="email"
+              typeIcon="MaterialIcons"
+              placeholder="Nhập email"
+              iconLeft
+              onChangeText={setEmail}
+              style={INPUT}
+            />
+
+            <TextField
+              value={phone}
+              label="Số điện thoại"
+              nameIcon="phone"
+              typeIcon="MaterialIcons"
+              placeholder="Nhập số điện thoại"
+              iconLeft
+              onChangeText={setPhone}
+              style={INPUT}
+            />
+            <TextField
+              value={address}
+              label="Địa chỉ"
+              nameIcon="address"
+              typeIcon="Entypo"
+              placeholder="Nhập địa chỉ"
+              iconLeft
+              onChangeText={setAddress}
+              style={INPUT}
+            />
+            <TextField
+              value={password}
+              label="Mật khẩu"
+              nameIcon="md-lock-closed-outline"
+              typeIcon="Ionicons"
+              placeholder="Nhập mật khẩu"
+              isEye
+              iconLeft
+              onChangeText={setPassword}
+              style={INPUT}
+            />
+            <TextField
+              label="Nhập lại mật khẩu"
+              nameIcon="md-lock-closed-outline"
+              typeIcon="Ionicons"
+              placeholder="Nhập lại mật khẩu"
+              isEye
+              iconLeft
+              onChangeText={setRePassword}
+              style={INPUT}
+            />
+            <ButtonApp title="Đăng kí" onPress={onRegister} style={BTN} />
+            <ButtonApp
+              title="Đã có tài khoản"
+              onPress={() => navigation.goBack()}
+              style={{ backgroundColor: color.white, marginTop: 10 }}
+              styleText={{ color: color.neutral700 }}
+            />
+          </ScrollView>
         </View>
       </Screen>
     )

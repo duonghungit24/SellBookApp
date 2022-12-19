@@ -19,6 +19,7 @@ import {
   ChangePasswordScreen,
   InforIndividualScreen,
   ResultSearchBookScreen,
+  SplashScreen,
 } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 import BottomTabs from "./bottomTab"
@@ -43,12 +44,17 @@ export type NavigatorParamList = {
   cartScreen: undefined
   likeBookScreen: undefined
   bottomTabs: undefined
-  detailBookScreen: undefined
+  detailBookScreen: {
+    itemDetail: any
+  }
   searchBookScreen: undefined
   forgotPasswordScreen: undefined
   changePasswordScreen: undefined
   inforIndividualScreen: undefined
-  resultSearchBookScreen: undefined
+  resultSearchBookScreen: {
+    textSearch: string
+  }
+  splashScreen: undefined
   // 🔥 Your screens go here
 }
 
@@ -61,9 +67,10 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="loginScreen"
+      initialRouteName="splashScreen"
     >
       <Stack.Screen name="welcome" component={WelcomeScreen} />
+      <Stack.Screen name="splashScreen" component={SplashScreen} />
       <Stack.Screen name="homeScreen" component={HomeScreen} />
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="registerScreen" component={RegisterScreen} />

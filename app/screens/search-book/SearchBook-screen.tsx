@@ -1,12 +1,21 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, TextStyle, TouchableOpacity, FlatList } from "react-native"
+import {
+  ViewStyle,
+  View,
+  TextStyle,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+  Keyboard,
+} from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
 import { Screen, Text, TextField } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, typography } from "../../theme"
+import { useStores } from "../../models"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.white,
@@ -25,8 +34,45 @@ const ROOT: ViewStyle = {
 export const SearchBookScreen: FC<StackScreenProps<NavigatorParamList, "searchBook">> = observer(
   function SearchBookScreen({ navigation }) {
     // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
+    const { bookStore } = useStores()
+    const [listBook, setListBook] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [textFilter, setTextFilter] = useState("")
 
+    useEffect(() => {
+      const getSearchBook = setTimeout(() => {
+        if (textFilter) {
+          getBook()
+        } else {
+          setListBook([])
+        }
+      }, 300)
+      return () => clearTimeout(getSearchBook)
+    }, [textFilter])
+
+    const getBook = async () => {
+      setIsLoading(true)
+      const result = await bookStore.getAllBook({
+        search: textFilter,
+        category: "",
+        page: 0,
+        title: "",
+        type: "",
+      })
+      setIsLoading(false)
+      if (result.isSuccess) {
+        const data = result.data.rows || []
+        setListBook(data)
+      }
+    }
+
+    const onSubmit = () => {
+      if (!textFilter) {
+        Keyboard.dismiss()
+      } else {
+        navigation.navigate("resultSearchBookScreen", { textSearch: textFilter })
+      }
+    }
     // Pull in navigation via hook
     // const navigation = useNavigation()
     return (
@@ -37,25 +83,33 @@ export const SearchBookScreen: FC<StackScreenProps<NavigatorParamList, "searchBo
             placeholder="Tìm kiếm sách"
             style={{ flex: 1, marginRight: 12 }}
             autoFocus={true}
-            onSubmitEditing={() => navigation.navigate("resultSearchBookScreen")}
+            onSubmitEditing={onSubmit}
             returnKeyLabel="Xong"
+            onChangeText={setTextFilter}
           />
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={TEXT_CLOSE}>Đóng</Text>
           </TouchableOpacity>
         </View>
-        <FlatList
-          data={[1, 2, 3, 4]}
-          keyExtractor={(_, index) => `${index}`}
-          renderItem={({ item, index }) => {
-            return (
-              <TouchableOpacity style={BTN}>
-                <Text style={TEXT_RESULT}>hello</Text>
-              </TouchableOpacity>
-            )
-          }}
-          ItemSeparatorComponent={() => <View style={LINE} />}
-        />
+        {isLoading ? (
+          <ActivityIndicator style={{ padding: 16 }} />
+        ) : (
+          <FlatList
+            data={listBook}
+            keyExtractor={(_, index) => `${index}`}
+            renderItem={({ item, index }) => {
+              return (
+                <TouchableOpacity
+                  style={BTN}
+                  onPress={() => navigation.navigate("detailBookScreen", { itemDetail: item })}
+                >
+                  <Text style={TEXT_RESULT}>{item.name}</Text>
+                </TouchableOpacity>
+              )
+            }}
+            ItemSeparatorComponent={() => <View style={LINE} />}
+          />
+        )}
       </Screen>
     )
   },
@@ -66,6 +120,7 @@ const WRAP_SEARCH: ViewStyle = {
   alignItems: "center",
   justifyContent: "center",
   paddingHorizontal: 12,
+  paddingTop: 12,
 }
 const TEXT_CLOSE: TextStyle = {
   color: color.neutral900,
